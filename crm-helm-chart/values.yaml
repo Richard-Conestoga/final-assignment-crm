@@ -1,0 +1,10 @@
+image:
+  repository: gitea.devsecmindset.dev/nikhil/final-assignment-crm
+  tag: latest
+  pullPolicy: Always
+
+mysql:
+  rootPassword: Secret5555
+  database: crm_db
+  user: crm_user
+  password: crmpass

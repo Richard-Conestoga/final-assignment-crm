@@ -1,15 +1,10 @@
-- name: remove mysql
+- name: Remove CRM from Kubernetes
   hosts: localhost
   gather_facts: false
   tasks:
-    - name: docker compose down
-      community.docker.docker_compose_v2:
-        project_src: .
-        files:
-        - mysql-adminer.yml
+    - name: Uninstall Helm chart from Kubernetes
+      kubernetes.core.helm:
+        name: crm-app
+        release_namespace: default
         state: absent
-    - name: Remove mysql-client
-      ansible.builtin.package:
-        name: mysql-client
-        state: absent
-      become: yes
+        wait: true
