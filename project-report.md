@@ -3,7 +3,7 @@
 
 ---
 
-## Step 1: Gitea Repository Setup (4 marks)
+## Step 1: Gitea Repository Setup
 
 ### Tasks Completed:
 - Cloned repository to Gitea: `https://gitea.devsecmindset.dev/Richard/final-assignment-crm.git`
@@ -17,7 +17,7 @@
 
 ---
 
-## Step 2: NFS Storage Configuration (4 marks)
+## Step 2: NFS Storage Configuration
 
 ### Tasks Completed:
 - Configured TrueNAS NFS storage for database persistence
@@ -33,54 +33,65 @@
 
 ---
 
-## Step 3: CI/CD Pipeline with Gitea Actions (4 marks)
+## Step 3: CI/CD Pipeline with Gitea Actions
 
 ### Tasks Completed:
-- Created Gitea Actions workflow file
-- Configured Docker image build process
-- Automated push to Gitea container registry
-- Workflow triggers on code push
+- Created Gitea personal access token with package write permissions
+- Set up Gitea Actions runner using Docker
+- Created `.gitea/workflows/build-and-push.yml` workflow file
+- Configured automated Docker image build on code push
+- Configured automated push to Gitea container registry
+- Fixed Dockerfile to include g++ compiler for numpy dependencies
+- Successfully built and pushed image to `gitea.devsecmindset.dev/nikhil/final-assignment-crm`
+
+### Runner Setup Process:
+1. Generated Gitea token with `write:package` permission
+2. Added token as repository secret (`GITEATOKEN`)
+3. Created runner registration token from repository settings
+4. Deployed runner using Docker:
+   ```bash
+   docker run -d --name gitea-runner \
+     -e GITEA_INSTANCE_URL=https://gitea.devsecmindset.dev \
+     -e GITEA_RUNNER_REGISTRATION_TOKEN=<token> \
+     -v /var/run/docker.sock:/var/run/docker.sock \
+     gitea/act_runner:latest
+   ```
+5. Verified runner registered and active in repository settings
 
 ### Screenshots:
-![Gitea Actions Workflow](screenshots/Task3.1.png)
-![Docker Image Build](screenshots/Task3.2.png)
-![Container Registry](screenshots/Task3.3.png)
-![Successful Build](screenshots/Task3.4.png)
+![Gitea Token Created](screenshots/Task3.1-GiteaTokenCreated.png)
+![Setting Up Runner - Configuration](screenshots/Task3.2-SettingUpRunner.png)
+![Setting Up Runner - Docker Local](screenshots/Task3.2-SettingUpRunner-DockerLocalRunner.png)
+![Registered Runner Active](screenshots/Task3.3-SettingUpRunner-RegisteredRunner.png)
+![Workflow Run Success & Image Push](screenshots/Task3.4-PushedWorkflowRunAndPushedImageToCR.png)
+![Docker Image in Container Registry](screenshots/Task3.5-PushedDockerImageInContainerRegistry.png)
+![Image Details](screenshots/Task3.6-ImageDetails.png)
 
 ---
 
-## Step 4: Cloudflared Ingress Setup (4 marks)
+## Step 5: Kubernetes Deployment with Helm
 
 ### Tasks Completed:
-- Configured cloudflared tunnel
-- Exposed CRM application to internet
-- Verified public access
+- Updated docker-compose.yml to use Gitea registry image (`gitea.devsecmindset.dev/nikhil/final-assignment-crm:latest`)
+- Installed Kompose tool
+- Converted docker-compose.yml to Kubernetes manifests using Kompose
+- Fixed Kubernetes resource naming (replaced underscores with hyphens for DNS compliance)
+- Created Helm chart structure with Chart.yaml and values.yaml
+- Organized Kompose-generated manifests into `crm-helm-chart/templates/`
+- Modified up.yaml to use Helm for Kubernetes deployment
+- Modified down.yaml to use Helm for Kubernetes cleanup
+- Installed Helm on local machine
+- Successfully deployed application to Kubernetes cluster using `helm install crm-app ./crm-helm-chart`
+
+### Deployment Status:
+- Database (MySQL) pod: Running
+- Adminer pod: Running
+- CRM application pod: Deployed (requires image rebuild with runtime dependencies)
 
 ### Screenshots:
-![Cloudflared Configuration](screenshots/Task4.1.png)
-![Tunnel Active](screenshots/Task4.2.png)
-![Public Access Verification](screenshots/Task4.3.png)
-
----
-
-## Step 5: Kubernetes Deployment with Helm (4 marks)
-
-### Tasks Completed:
-- Updated docker-compose.yml with Gitea registry image
-- Converted to Kubernetes using Kompose
-- Created Helm chart structure
-- Modified up.yaml for K8s deployment
-- Modified down.yaml for cleanup
-- Integrated cloudflared tunnel
-- Application running on Kubernetes
-
-### Screenshots:
-![Kompose Conversion](screenshots/Task5.1.png)
-![Helm Chart Structure](screenshots/Task5.2.png)
-![Kubernetes Deployment](screenshots/Task5.3.png)
-![Application Running](screenshots/Task5.4.png)
-![Cloudflared Tunnel Integration](screenshots/Task5.5.png)
-![Public Access Test](screenshots/Task5.6.png)
+![Kompose Conversion](screenshots/Task5-Kompose-CreatedKubernetesYaml.png)
+![Helm Chart Deployed](screenshots/Task5-HelmDeployed.png)
+![Kubernetes Pods Status](screenshots/Task5-AllContainersRunning.png)
 
 ---
 
@@ -89,7 +100,7 @@
 - **Gitea Repository**: https://gitea.devsecmindset.dev/Richard/final-assignment-crm.git
 - **Public GitHub**: https://github.com/Richard-Conestoga/container-asssignment3.git
 - **Gitea Instance**: https://gitea.devsecmindset.dev/
-- **Application URL**: [Add cloudflared tunnel URL here]
+- **Container Registry**: https://gitea.devsecmindset.dev/Nikhil/-/packages/container/final-assignment-crm
 
 ---
 
@@ -98,13 +109,22 @@
 - Docker & Docker Compose
 - Kubernetes (K3s)
 - Helm
-- Gitea & Gitea Actions
-- TrueNAS (NFS Storage)
-- Cloudflared Tunnel
 - Kompose
+- Gitea & Gitea Actions
+- Gitea Container Registry
+- TrueNAS (NFS Storage)
 - Django CRM Application
-- PostgreSQL Database
+- MySQL Database
+- Adminer (Database Management)
 
 ---
 
-## Total Marks: 20/20
+## Team Contributions
+
+### Partner (Richard):
+- Step 1: Gitea Repository Setup
+- Step 2: NFS Storage Configuration
+
+### My Contribution (Nikhil):
+- Step 3: CI/CD Pipeline with Gitea Actions
+- Step 5: Kubernetes Deployment with Helm
