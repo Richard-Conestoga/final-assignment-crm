@@ -5,7 +5,6 @@ To run this with `docker compose`:
 
 1. Edit the file patch-settings.diff to have your hostname and url:
 
-
 ```diff
  # Add your hosts to the list.
 -ALLOWED_HOSTS = ['localhost', '127.0.0.1']
