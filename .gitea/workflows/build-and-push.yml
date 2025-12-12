@@ -18,7 +18,7 @@ jobs:
           uses: docker/login-action@v3
           with:
             registry: gitea.devsecmindset.dev
-            username: ${{ gitea.actor }}
+            username: Nikhil
             password: ${{ secrets.GITEATOKEN }}
 
         - name: Build and push Docker image
@@ -27,5 +27,5 @@ jobs:
             context: .
             push: true
             tags: |
-              gitea.devsecmindset.dev/richard/final-assignment-crm:latest     
-              gitea.devsecmindset.dev/richard/final-assignment-crm:${{ gitea.sha }}
+              gitea.devsecmindset.dev/nikhil/final-assignment-crm:latest
+              gitea.devsecmindset.dev/nikhil/final-assignment-crm:${{ gitea.sha }}
