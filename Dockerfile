@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY django-crm/requirements.txt .
 
-RUN apk add --no-cache --virtual .build-deps gcc musl-dev mariadb-dev \
+RUN apk add --no-cache --virtual .build-deps gcc g++ musl-dev mariadb-dev \
     && pip install --no-cache-dir -r requirements.txt \
     && apk del .build-deps
 
