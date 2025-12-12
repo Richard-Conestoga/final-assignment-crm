@@ -1,5 +1,5 @@
 name: Build and Push Docker Image
-  run-name: ${{ gitea.actor }} is building Docker image 🚀
+  run-name: ${{ gitea.actor }} is building Docker image 
   on: [push]
 
   jobs:
