@@ -1,7 +1,7 @@
 services:
 
   crm:
-    build: .
+    image: gitea.devsecmindset.dev/nikhil/final-assignment-crm:latest
     restart: always
     depends_on:
     - db
