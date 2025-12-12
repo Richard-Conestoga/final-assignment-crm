@@ -1,6 +1,9 @@
 # Django CRM - Container Orchestration Final Assignment
 ## Project Report
 
+### Richard Andrey Biscazzi - 8903530
+### Nikhil Shankar Chirakkal Sivasankaran - 9026254
+
 ---
 
 ## Step 1: Gitea Repository Setup
@@ -69,6 +72,32 @@
 
 ---
 
+## Step 4: Cloudflared Tunnel - Exposing CRM to Internet
+
+### Tasks Completed:
+- Downloaded and installed Cloudflared CLI
+- Fixed Python version compatibility issue (changed from `python:alpine` to `python:3.12-alpine`)
+- Configured Django ALLOWED_HOSTS to accept Cloudflare tunnel domains
+- Added CSRF_TRUSTED_ORIGINS for Cloudflare URLs
+- Created cloudflared tunnel using `./cloudflared.exe tunnel --url http://localhost:8080`
+- Successfully exposed CRM application to public internet via Cloudflare tunnel
+- Verified public URL accessibility
+
+### Configuration Changes:
+1. **Dockerfile**: Updated base image to Python 3.12 for numpy/pandas compatibility
+2. **settings.py**: Added Cloudflare tunnel URLs to ALLOWED_HOSTS:
+   - `anaheim-bottles-hop-delayed.trycloudflare.com`
+   - `architecture-smooth-linked-bright.trycloudflare.com`
+3. **urls.py**: Added root URL redirect to `/en/123/` for better user experience
+
+### Screenshots:
+![Cloudflared Tunnel Setup](screenshots/Task4-CloudflaredTunnel.png)
+![Getting Public IP](screenshots/Task4-CloudflareGettingPublicIp.png)
+![Public URL Exposing CRM](screenshots/Task4-CloudflarePublicURLExposingCRM.png)
+![Django CRM Running](screenshots/Task4-DjangoCRMRunning.png)
+
+---
+
 ## Step 5: Kubernetes Deployment with Helm
 
 ### Tasks Completed:
@@ -113,6 +142,7 @@
 - Gitea & Gitea Actions
 - Gitea Container Registry
 - TrueNAS (NFS Storage)
+- Cloudflared Tunnel
 - Django CRM Application
 - MySQL Database
 - Adminer (Database Management)
@@ -121,10 +151,11 @@
 
 ## Team Contributions
 
-### Partner (Richard):
+### Richard:
 - Step 1: Gitea Repository Setup
 - Step 2: NFS Storage Configuration
 
-### My Contribution (Nikhil):
+### Nikhil:
 - Step 3: CI/CD Pipeline with Gitea Actions
+- Step 4: Cloudflared Tunnel Configuration
 - Step 5: Kubernetes Deployment with Helm

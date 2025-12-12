@@ -1,7 +1,7 @@
 services:
 
   crm:
-    image: gitea.devsecmindset.dev/nikhil/final-assignment-crm:latest
+    build: .
     restart: always
     depends_on:
     - db
@@ -18,7 +18,7 @@ services:
       MYSQL_PASSWORD: crmpass
     # (this is just an example, not intended to be a production configuration)
     ports:
-      - 3306:3306
+      - 1326:3306
     volumes:
       - mysql_db_data:/var/lib/mysql
   adminer_container:
