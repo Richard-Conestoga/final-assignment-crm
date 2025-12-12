@@ -1,11 +1,11 @@
 name: Build and Push Docker Image
-  run-name: ${{ gitea.actor }} is building Docker image 
-  on: [push]
+run-name: ${{ gitea.actor }} is building Docker image
+on: [push]
 
-  jobs:
-    build-and-push:
-      runs-on: ubuntu-latest
-      steps:
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
         - name: Checkout code
           uses: actions/checkout@v4
           with:
